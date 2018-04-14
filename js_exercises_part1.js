@@ -54,3 +54,51 @@ function printBanner(context){
     console.log('*'.repeat(w+4))
 }
 printBanner('Welcome to DigitalCrafts')
+
+
+// Leetspeak
+function leetSpeak(string){
+    leet = {"A":4,"E":3,"G":6,"I":1,"O":0,"S":5,"T":7}
+    result = ""
+    for(i = 0; i < string.length; i++){
+        if(string[i] in leet){
+            result += leet[string[i]]
+        } else{
+            result += string[i]
+        }
+    }
+    console.log(result)
+}
+
+leetSpeak("HELLO")
+
+
+// Long-long Vowels
+function longVowel(string){
+    l_string = ''
+    if(string.includes('oo')){
+        l_string = string.replace('oo', 'ooooo')
+        console.log(l_string)
+    } else if(string.includes('ee')){
+        l_string = string.replace('ee', 'eeeee')
+        console.log(l_string)
+    }
+}
+
+longVowel('Cheese')
+
+// Just the positives
+function positiveNumbers(arr){
+    n_array = []
+    for(i=0; i < arr.length; i++){
+        if(arr[i] >= 0){
+            n_array.push(arr[i])
+        }
+    }
+    console.log(n_array)
+}
+
+positiveNumbers([1, -3, 5, -3, 0])
+positiveNumbers([1, 2, 3])
+positiveNumbers([-1, -2, -3])
+
