@@ -102,3 +102,40 @@ positiveNumbers([1, -3, 5, -3, 0])
 positiveNumbers([1, 2, 3])
 positiveNumbers([-1, -2, -3])
 
+
+//Caesar Cipher
+alphabet = {' ':' ','a':'d','b':'e','c':'f','d':'g','e':'h','f':'i','g':'j','h':'k','i':'l','j':'m','k':'n','l':'o','m':'p','n':'q','o':'r','p':'s','q':'t','r':'u','s':'v','t':'w','u':'x','v':'y','w':'z','x':'a','y':'b','z':'c'}
+reverse_a = { ' ': ' ', d: 'a', e: 'b', f: 'c', g: 'd', h: 'e', i: 'f', j: 'g', k: 'h', l: 'i', m: 'j', n: 'k', o: 'l', p: 'm', q: 'n', r: 'o', s: 'p', t: 'q', u: 'r', v: 's', w: 't', x: 'u', y: 'v', z: 'w', a: 'x', b: 'y', c: 'z' }
+
+
+result = ''
+function cipher(string){
+    for(let i=0; i < string.length; i++){
+        result += alphabet[string[i]]
+    }
+    console.log(result)
+};
+
+result2 = ''
+function decipher(string_d){
+    for(let i=0; i < string_d.length; i++){
+        result2 += reverse_a[string_d[i]]
+    }
+    console.log(result2)
+};
+
+cipher('genius without education is like silver in the mine')
+decipher('jhqlxv zlwkrxw hgxfdwlrq lv olnh vloyhu lq wkh plqh')
+
+
+// // Function to reverse alphabet
+
+// function reverseAlphabet(alphabet){
+//     var ret = {};
+//     for(var attr in alphabet){
+//         var value = alphabet[attr];
+//         ret[value] = attr
+//     }
+//     console.log(ret)
+//     return ret;
+// }
