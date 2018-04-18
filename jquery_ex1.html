@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="./jquery.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+      crossorigin="anonymous"></script>
+
+    <!-- Change the text of the button to "Please click me!". Putting your code in the document ready block is important. -->
+<script>
+$(document).ready(function () {
+  $('#the-button').click(function () {
+      $(this).text('Please click me!');
+  });
+});
+</script>
+  </head>
+  <body>
+    <button id="the-button">meh</button>
+  </body>
+</html>
