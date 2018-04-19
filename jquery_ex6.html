@@ -3,13 +3,18 @@
   <head>
     <meta charset="utf-8">
     <title>Todo List Exercise</title>
-    <script src="jquery.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+      crossorigin="anonymous"></script>
     <script>
     /*
     Make the hide the section the first time the section header is clicked, show it when it is clicked again.
     */
-    $(function() {
-      // Write code here
+    $(document).ready(function(){
+        $('#section-header').click(function(){
+            $( "#section" ).toggle();
+      });
     });
     </script>
 
@@ -26,6 +31,7 @@
     }
     #section {
       padding: 5px;
+      display: block;
     }
     </style>
   </head>

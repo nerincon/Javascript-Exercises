@@ -3,16 +3,24 @@
   <head>
     <meta charset="utf-8">
     <title>Todo List Exercise</title>
-    <script src="jquery.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+      crossorigin="anonymous"></script>
     <script>
     /*
     Make it so that when you click on one of the links on this page,
     instead of navigating the browser to that page, it renders that
     page in the iframe below. Set the iframe's `src` attribute to a URL will cause it to render the page.
     */
-    $(function() {
-      // Write code here
-    });
+      $(document).ready(function(){
+        $('li').click(function(){
+          event.preventDefault();
+          var url = window.location = "http://hellohappy.org";
+          window.load(url);
+        });
+      });
+
     </script>
   </head>
   <body>
