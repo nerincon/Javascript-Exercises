@@ -134,3 +134,26 @@ function combinePage (file1, file2, output_comb) {
     };
 
 combinePage(file1, file2, output_comb)
+
+// Resolve, Reject
+function addNumbers(x, y) {
+    var promise = new Promise(function (resolve, reject) {
+        try {
+            var answer = x + y
+            if(typeof(answer) === 'number'){
+                resolve(answer)
+                console.log(answer)
+            } else {
+            console.log('Please input numbers not strings')
+            return }
+        }
+            catch(error) {
+            reject(error)
+            }
+    })
+    return promise;
+};
+
+addNumbers(2,10)
+
+
