@@ -1,0 +1,15 @@
+{% extends 'partials/main.html' %}
+{% block title %}
+<title>Fav_Animals</title>
+{% endblock %}
+{% block content %}
+<ul>
+    {% for a in animals %}
+                {% if a.favorite %}
+                <li>
+                    {{a.name}}
+                </li>
+                {% endif %}
+    {% endfor %}
+</ul>
+{% endblock %}
