@@ -1,0 +1,14 @@
+html, body {
+    background-color: aqua;
+    height:100%;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    padding-top: 20%;
+}
+
+button {
+    margin-left: 47em;
+}

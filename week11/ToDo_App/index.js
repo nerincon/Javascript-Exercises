@@ -63,7 +63,7 @@ app.post('/todos/done/:id', function (req, res, next){
         })
         .catch(next)
     } else {
-        res.render('done-todo', {error: 'your wrong'});
+        res.render('done-todo', {error: 'please type true or false'});
     }
 });
 
