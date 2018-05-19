@@ -1,0 +1,39 @@
+body {
+    background: url("/stylesheets/todo.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+}
+
+table {
+    box-shadow: 5px 10px #888888;
+}
+
+table, th, td {
+    border: 0.2px solid black;
+    border-spacing: 0;
+}
+
+th {
+    background-color: darkorange;
+    padding: 4px;
+}
+
+tr:nth-child(even) {
+    background-color: lightgreen;
+}
+
+tr:nth-child(odd) {
+    background-color: beige;
+}
+
+td {
+    padding: 4px;
+}
+
+#content {
+    margin-left:35%;
+    margin-top: 5%;
+}

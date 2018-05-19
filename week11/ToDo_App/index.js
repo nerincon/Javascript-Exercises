@@ -25,7 +25,7 @@ app.get('/', function (req, res) {
     });
 
 app.get('/todos', function (req, res, next) {
-    let query = "SELECT * FROM task"
+    let query = "SELECT * FROM task ORDER BY id"
     db.any(query)
     .then(function(resultsArray){
         res.render('todos', {results: resultsArray});

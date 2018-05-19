@@ -4,20 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/stylesheets/todo.css">
     <title>ToDOs</title>
 </head>
 <body>
     {% block content %}
-    <ul>
-        {% for r in results %}
-        <li>
-            Todo: {{r.description}}<br>
-            Done: {{r.done}}
-            <a href="/todos/done/{{r.id}}">Go to ToDo</a>
-            <p></p>
-        </li>
-        {% endfor %}
-    </ul>
+    <div id='content'>
+        <table>
+            <tr>
+                <th>Todo</th>
+                <th>Done</th>
+                <th>Change Done?</th>
+            </tr>
+                {% for r in results %}
+                <tr>
+                    <td>{{r.description}}</td>
+                    <td>{{r.done}}</td>
+                    <td><a href="/todos/done/{{r.id}}">Change</a></td>
+                </tr>
+                {% endfor %}
+        </table>
+    </div>
     {% endblock %}
 </body>
 </html>
