@@ -7,9 +7,8 @@
     <title>Restaurant</title>
 </head>
 <body>
-    {% for r in results %}
-    <h1>
-        {{r.name}}
+    <!-- <h1>
+        {{r.restaurant_name}}
     </h1>
     <li>
         Address:  {{r.address}}
@@ -17,6 +16,33 @@
     <li>
         Category:  {{r.category}}
     </li>
-    {% endfor %}
+    {% for r in results %}
+    <li>
+        Category:  {{r.category}}
+    </li>
+    <li>
+        Review Title:  {{r.review_title}}
+    </li>
+    {% endfor %} -->
+        {% for d in data %}
+        <h1>
+            {{d.restaurant_name}}
+        </h1>
+        {% endfor %}
+        <p></p>
+        {% for dd in data2 %}
+        <h4>
+            Review Title:  {{dd.review_title}}
+        </h4>
+        <li>
+            Review:  {{dd.review}}
+        </li>
+        <li>
+            Stars:  {{dd.stars}}
+        </li>
+        <li>
+            Reviewer Name:  {{dd.reviewer_name}}
+        </li>
+        {% endfor %}
 </body>
 </html>
