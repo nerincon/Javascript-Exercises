@@ -75,10 +75,10 @@ app.post('/restaurant/:id', function (req, res, next){
     var star = req.body.star;
     var r_par = req.body.r_par;
     let id = req.params.id;
-    let query = "INSERT INTO review VALUES(DEFAULT, ${star}, ${r_title}, 'NULL', ${id})";
+    let query = "INSERT INTO review VALUES(DEFAULT, ${star}, ${r_title}, ${r_par}, 1, ${id})";
     db.result(query, {r_title, star, r_par, id})
     .then(function(){
-        res.redirect('/restaurant' + id);
+        res.redirect('/restaurant/' + id);
     })
     .catch(next)
 });

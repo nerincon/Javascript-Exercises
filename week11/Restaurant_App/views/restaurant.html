@@ -7,23 +7,6 @@
     <title>Restaurant</title>
 </head>
 <body>
-    <!-- <h1>
-        {{r.restaurant_name}}
-    </h1>
-    <li>
-        Address:  {{r.address}}
-    </li>
-    <li>
-        Category:  {{r.category}}
-    </li>
-    {% for r in results %}
-    <li>
-        Category:  {{r.category}}
-    </li>
-    <li>
-        Review Title:  {{r.review_title}}
-    </li>
-    {% endfor %} -->
         {% for d in data %}
         <h1>
             {{d.restaurant_name}}
@@ -49,13 +32,13 @@
         <br>
         <br>
         <h3>Add Review</h3>
-        <form action='/restaurant/{{d.id}}' method='POST'>
+        <form action='' method='POST'>
             <input name='r_title' placeholder='Review Title'><br><br>
-            <label>1 Star</label><input type='radio' name='star'>
-            <label>2 Star</label><input type='radio' name='star'>
-            <label>3 Star</label><input type='radio' name='star'>
-            <label>4 Star</label><input type='radio' name='star'>
-            <label>5 Star</label><input type='radio' name='star'><br><br>
+            <label>1 Star</label><input type='radio' name='star' value='1'>
+            <label>2 Star</label><input type='radio' name='star' value='2'>
+            <label>3 Star</label><input type='radio' name='star' value='3'>
+            <label>4 Star</label><input type='radio' name='star' value='4'>
+            <label>5 Star</label><input type='radio' name='star' value='5'><br><br>
             <textarea rows="10" cols="50" name='r_par' placeholder="Review"></textarea><br><br>
             <button type="submit" >Add Review</button>
         </form>
