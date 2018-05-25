@@ -5,14 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../static/css/login.css">
+        <link rel="stylesheet" href="/stylesheets/login.css">
         <title>Login</title>
     </head>
     <body>
         <div class="row">
             <h1>Login</h1>
             <div id='main'>
-                <form action="/loginsuccess" method="POST">
+                <form action="/login" method="POST">
                     <div class="form-group">
                         <input class="form-control" type="text" name="username" placeholder="username">
                     </div>
@@ -23,6 +23,10 @@
                         <button class="btn btn-lg btn-primary btn-block">Login</button>
                     </div>
                 </form>
+                <br>
+                <div class="form-group">
+                    <a role="button" class="btn btn-sm btn-warning btn-block" href="/signup">Sign Up</a>
+                </div>
             </div>
         </div>
         <!-- Bootstrap JS CDN -->

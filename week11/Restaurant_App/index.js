@@ -3,6 +3,10 @@ var express = require('express');
     body_parser = require('body-parser');
     pgp = require('pg-promise')({ });
     db = pgp({database: 'restaurant_v2', user: 'postgres'});
+    session = require('express-session');
+    pbkdf2 = require('pbkdf2');
+    passhelper = require('pbkdf2-helpers');
+    crytpo = require('crypto');
     app = express();
 
 
@@ -17,6 +21,23 @@ nunjucks.configure('views', {
     express: app,
     noCache: true
     });
+
+app.use(session({
+    secret: process.env.SECRET_KEY || 'dev',
+    resave: true,
+    saveUninitialized: false,
+    cookie: {maxAge: 60000}
+  }));
+
+var open_pages = ['/', '/login', '/signup', '/logout'];
+app.use(function (req, res, next) {
+    if (req.session.username || open_pages.indexOf(req.path) > -1) {
+      next();
+    } else {
+      res.redirect('/login');
+    }
+  });
+
 
 app.get('/', function (req, res) {
     var searchTerm = req.query.searchTerm;
@@ -83,6 +104,60 @@ app.post('/restaurant/:id', function (req, res, next){
     .catch(next)
 });
 
+
+app.get('/login', function (req, res) {
+    res.render('login');
+  });
+
+app.post('/login', function (req, res, next) {
+var username = req.body.username;
+var password = req.body.password;
+if (username && password) {
+    let query = "SELECT id, username, password FROM users WHERE username = ${username}";
+    db.query(query, {username, password})
+    .then(function(result){
+        if (passhelper.matches(password, result[0].password)) {
+            req.session.username = username;
+            req.session.userid = result[0].id;
+            console.log('loggedin')
+            res.redirect('/');
+        } else {
+            console.log('No');
+            res.render('login');
+        }
+    })
+    .catch(next)
+} else {
+    res.render('login');
+}
+});
+
+app.get('/signup', function (req, res) {
+    res.render('signup');
+  });
+
+app.post('/signup', function (req, res, next) {
+var username = req.body.username;
+var password = req.body.password;
+if (username && password) {
+    req.session.user = username;
+    var hash = passhelper.create_hash(password);
+    var db_storage_text = passhelper.generate_storage(hash);
+    let query = "INSERT INTO users VALUES(DEFAULT, ${username}, ${db_storage_text})";
+    db.result(query, {username, db_storage_text})
+    .then(function(){
+        res.redirect('/');
+    })
+    .catch(next)
+} else {
+    res.render('signup');
+}
+});
+
+app.get('/logout', function (req, res){
+    req.session.destroy()
+    res.redirect('/login')
+});
 
 app.listen(8000, function () {
     console.log('Listening on port 8000');
