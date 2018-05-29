@@ -34,10 +34,14 @@ io.on('connection', function(socket){
 
   //New User
   socket.on('new user', function(data, callback){
+    if(data in users){
+      callback(false);
+    } else {
     callback(true);
     socket.username = data;
     users.push(socket.username);
     updateUsernames();
+    }
   });
 
   //Disconnect
