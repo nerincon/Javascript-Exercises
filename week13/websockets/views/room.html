@@ -9,9 +9,6 @@
       body {
         margin-top: 30px;
       }
-      #messageArea {
-        display: none
-      }
       .well {
         word-break: break-all;
         word-wrap: break-word;
@@ -30,21 +27,13 @@
   </head>
   <body>
     <div class = 'container'>
-      <div id='userFormArea' class='row'>
-        <div class='col-md-12'></div>
-        <form action="/" method="GET" role="form" id='userForm' class="form-horizontal">
-            <div class='form-group'>
-              <label>Enter Username</label>
-              <input class='form-control' id='username'/><br>
-              <input type='submit' class='btn btn-primary' value='Login'/>
-            </div>
-          </form>
-        </div>
       <div id='messageArea' class='row'>
         <div class='col-md-4'>
           <div class='well'>
             <h3>Online Users</h3>
-            <ul class='list-group' id='users'></ul>
+            <ul class='list-group' id='users'>
+                <li class="list-group-item">{{user}}</li>
+            </ul>
           </div>
         </div>
         <div class='col-md-8'>
@@ -57,20 +46,13 @@
               <input type='submit' class='btn btn-primary' value='Send Message'/>
             </div>
           </form>
-          <button id='private' class='btn btn-warning'>Private Room</button><br>
-          <form action="/privateroom/" method="GET" role="form" class="form-horizontal">
-          <div class='form-group priv-name'>
-            <label>Enter Room Name</label>
-            <input class='form-control form-control-sm' name='roomname'/><br>
-            <input type='hidden' id="private-user" name='username'/><br>
-            <input type='submit' class='btn btn-warning'/>
-          </div>
-        </form>
         </div>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> 
     <script>
+      var ROOM = '{{ room }}';
+      var USER = '{{ user }}';
       marked.setOptions({
         renderer: new marked.Renderer(),
         highlight: function(code) {
@@ -93,22 +75,13 @@
           return false;
         });
 
+        socket.emit('new user', {room: ROOM, user: USER});
+
         socket.on('new message', function(data){
           var content = marked(data.msg)
           $('#chat').append('<div class="well"><strong>'+data.user+'</strong>: <pre>'+content+'</pre></div>');
         });
 
-        $('#userForm').submit(function(){
-          $('#private-user').val($('#username').val());
-          socket.emit('new user', $('#username').val(), function(data){
-            if(data){
-              $('#userFormArea').hide();
-              $('#messageArea').show();
-            }
-          });
-          $('#username').val('');
-          return false;
-        });
         socket.on('get users', function(data){
           var html = '';
           for(let i = 0; i < data.length; i++){
@@ -116,13 +89,6 @@
           }
           $(users).html(html)
         })
-        $("#private").click(function() {
-          $('.priv-name').css('display','block');
-        });
-        var url = new URL(location.href);
-        var room = url.searchParams.get('room') || 'main-room';
-      
-        server.emit('join-room', room);
       });
     </script>
   </body>

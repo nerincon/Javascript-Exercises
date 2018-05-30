@@ -3,7 +3,7 @@ const nunjucks = require('nunjucks');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var users = [];
+var users = {};
 var connections = [];
 
 
@@ -22,7 +22,18 @@ app.get('/', function (req, res) {
   res.render('index.html');
 });
 
+app.get('/privateroom/', function(req, res){
+  var roomname = req.query.roomname;
+  var username = req.query.username;
+
+  console.log(roomname);
+  console.log(username);
+  res.render('room.html', {room: roomname, user: username});
+})
+
 io.on('connection', function(socket){
+  var my_room;
+
   connections.push(socket);
   console.log('Connected: %s sockets connected', connections.length);
 
@@ -33,29 +44,46 @@ io.on('connection', function(socket){
   });
 
   //New User
-  socket.on('new user', function(data, callback){
-    if(data in users){
-      callback(false);
-    } else {
-    callback(true);
-    socket.username = data;
-    users.push(socket.username);
-    updateUsernames();
+  socket.on('new user', function(data){
+    socket.join(data.room);
+    my_room = data.room;
+    if (!users[data.room]) {
+      users[data.room] =  [];
     }
+
+    console.log(users);
+    
+    if(data.user in users[data.room]){
+      console.log(data)
+      
+    } else {
+    
+    socket.username = data.user;
+    users[data.room].push(data.user);
+    console.log(users);
+    updateUsernames(data.room);
+    }
+  });
+
+  socket.on('join-room', function(room){
+    socket.join(room, function() {
+      console.log('ROOMS', socket.rooms);
+      io.to(room).emit('chat-msg', '**new user joined**');
+    });
   });
 
   //Disconnect
   socket.on('disconnect', function(){
     if(!socket.username){return}
-    users.splice(users.indexOf(socket.username), 1);
+    users[my_room].splice(users[my_room].indexOf(socket.username), 1);
     updateUsernames();
     connections.splice(connections.indexOf(socket), 1);
     console.log('Disconnected: %s sockets connected', connections.length);
   });
 });
 
-function updateUsernames() {
-  io.emit('get users', users);
+function updateUsernames(room) {
+  io.to(room).emit('get users', users[room]);
 }
 
 http.listen(8080, function () {
