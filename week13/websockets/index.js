@@ -38,15 +38,17 @@ io.on('connection', function(socket){
   console.log('Connected: %s sockets connected', connections.length);
 
   //Send Message
-  socket.on('send message', function(data){
-    console.log('message: ' + data);
-    io.emit('new message', {msg: data, user: socket.username});
+  socket.on('send message', function(msg){
+    console.log('message: ' + msg.msg);
+    console.log('room: ' + msg.room);
+    io.to(msg.room).emit('new message', {msg: msg.msg, user: socket.username});
   });
 
   //New User
   socket.on('new user', function(data){
     socket.join(data.room);
     my_room = data.room;
+    console.log('myRoom: '+ my_room);
     if (!users[data.room]) {
       users[data.room] =  [];
     }
